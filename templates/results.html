@@ -1,153 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Prediction Result</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;600;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-  <title>Results Page</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: url('/static/img/bg5.avif') no-repeat center center/cover;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
 
-  <!-- Favicons -->
-  <link href="https://www.shutterstock.com/image-illustration/single-rice-grain-art-icon-260nw-1737196706.jpg" rel="icon">
-  <link href="https://www.shutterstock.com/image-illustration/single-rice-grain-art-icon-260nw-1737196706.jpg" rel="apple-touch-icon">
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(59, 57, 57, 0.6); /* Light overlay for readability */
+      z-index: 0;
+    }
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    header, main, footer {
+      position: relative;
+      z-index: 1;
+    }
 
-  
-  <!-- Template Main CSS File -->
-  <link href="/static/css/style.css" rel="stylesheet">
+    header {
+      background: rgba(44, 62, 80, 0.9);
+      padding: 20px 40px;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(5px);
+    }
 
- 
+    header h1 {
+      font-size: 24px;
+    }
 
-    <!-- ======= Header ======= -->
-    <header id="header" class="d-flex align-items-center">
-      <div class="container d-flex align-items-center justify-content-between">
+    nav a {
+      color: #ffffff;
+      text-decoration: none;
+      margin-left: 20px;
+      font-weight: 600;
+    }
 
-        <div class="logo">
-          <h1 class="text-light"><a href="index.html"><span>Rice Type Classification</span></a></h1>
-          
-        </div>
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
 
-        <nav id="navbar" class="navbar">
-          <ul>
-            <li><a class="nav-link scrollto " href="/">Home</a></li>
-            <li><a class="nav-link scrollto" href="/">About</a></li>
-            <li><a class="nav-link scrollto" href="/">Testimonials</a></li>
-            <li><a class="nav-link scrollto" href="/">Contact</a></li>
-            <li><a class="nav-link scrollto" href="/details">Predict</a></li>
-          </ul>
-          <i class="bi bi-list mobile-nav-toggle"></i>
-        </nav><!-- .navbar -->
+    .glass-card {
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 20px;
+      padding: 40px 30px;
+      max-width: 600px;
+      width: 100%;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+      backdrop-filter: blur(10px);
+      color: #2c3e50;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
 
-      </div>
-    </header><!-- End Header -->
+    .glass-card h2 {
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
 
-    <main id="main">
+    .glass-card p {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
 
-      <!-- ======= Breadcrumbs ======= -->
-      <section class="breadcrumbs">
-        <div class="container">
+    .prediction {
+      font-size: 24px;
+      font-weight: bold;
+      color: #007b7f;
+      margin-top: 10px;
+      margin-bottom: 25px;
+    }
 
-          
+    .glass-card button {
+      padding: 12px 28px;
+      font-size: 16px;
+      font-weight: 600;
+      background-color: #007b7f;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
 
-        </div>
-      </section><!-- End Breadcrumbs -->
+    .glass-card button:hover {
+      background-color: #005f60;
+    }
 
-      <section class="inner-page">
-        <div class="container position-relative">
-          <div class="row d-flex justify-content-center">
-            <div class="col-lg-6 text-center">
-              <h2>Results</h2>
-              <p>Based on the image given as input, the AI model has predicted that there is a high possibility for your rice is of type<p>
-              <p> {{ prediction_text }}</p>
-              <form action="/details" method="GET">
-                <button type="submit">Try Another Image</button>
-            </form>
-            
-            </div>
-          </div>
-        </div>
-      </section>
+    footer {
+      background: rgba(44, 62, 80, 0.9);
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+      backdrop-filter: blur(5px);
+    }
 
-    </main><!-- End #main -->
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
 
-    <!-- ======= Footer ======= -->
-    <footer id="footer">
+      nav {
+        margin-top: 10px;
+      }
 
-      <div class="footer-newsletter">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-lg-6">
+      .glass-card h2 {
+        font-size: 26px;
+      }
 
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
+      .prediction {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
 
-      <div class="footer-top">
-        <div class="container">
-          <div class="row">
+  <header>
+    <h1>Rice Classifier</h1>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/details">Predict</a>
+    </nav>
+  </header>
 
-            <div class="col-lg-3 col-md-6 footer-contact">
-              <h3>Rice</h3>
-              <p>
-                A108 Adam Street <br>
-                Pune, 535022<br>
-                India <br><br>
-                <strong>Phone:</strong> +91 55895 54885<br>
-                <strong>Email:</strong> info@example.com<br>
-              </p>
-            </div>
+  <main>
+    <div class="glass-card">
+      <h2>Prediction Result</h2>
+      <p>The AI model predicts the rice type as:</p>
+      <p class="prediction">{{ prediction_text }}</p>
+      <form action="/details" method="GET">
+        <button type="submit">Try Another Image</button>
+      </form>
+    </div>
+  </main>
 
-            <div class="col-lg-3 col-md-6 footer-links">
-              <h4>Useful Links</h4>
-              <ul>
-                <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-                <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
-                <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
-                <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
-                <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
-              </ul>
-            </div>
-
-            <div class="col-lg-3 col-md-6 footer-links">
-              <h4>Our Services</h4>
-              <ul>
-                <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
-                <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
-                <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
-                <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
-                <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
-              </ul>
-            </div>
-
-
-          </div>
-        </div>
-      </div>
-
-      <div class="container py-4">
-        <div class="copyright">
-          &copy; Copyright <strong><span>Rice</span></strong>. All Rights Reserved
-        </div>
-        <div class="credits">
-          
-        </div>
-      </div>
-    </footer><!-- End Footer -->
-
-  </div>
-
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-  
-  <!-- Template Main JS File -->
-  <script src="/static/js/main.js"></script>
+  <footer>
+    &copy; 2025 Rice Detection App — All rights reserved.
+  </footer>
 
 </body>
-
 </html>
